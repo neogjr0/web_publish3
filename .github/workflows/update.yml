@@ -1,0 +1,21 @@
+name: Daily Seoul Update
+on:
+  schedule:
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - run: python setup.py
+      - run: python collector.py
+      - run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "action@github.com"
+          git add .
+          git commit -m "Update Data" || exit 0
+          git push
