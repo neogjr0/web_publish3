@@ -44,6 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      workflows: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
