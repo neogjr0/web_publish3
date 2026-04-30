@@ -33,32 +33,7 @@ if __name__ == "__main__":
 """
     with open('setup.py', 'w', encoding='utf-8') as f: f.write(setup_content)
 
-    os.makedirs('.github/workflows', exist_ok=True)
-    yaml_content = """name: Daily Seoul Update
-on:
-  schedule:
-    - cron: '0 15 * * *'
-  workflow_dispatch:
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      workflows: write
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-      - run: python setup.py
-      - run: python collector.py
-      - run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "action@github.com"
-          git add .
-          git commit -m "Update Data" || exit 0
-          git push"""
-    with open('.github/workflows/update.yml', 'w', encoding='utf-8') as f: f.write(yaml_content)
+   
 
 def create_html(data_list):
     json_data = json.dumps(data_list, ensure_ascii=False)
